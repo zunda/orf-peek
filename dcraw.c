@@ -9064,6 +9064,7 @@ void CLASS convert_to_rgb()
   if (verbose)
     fprintf (stderr, raw_color ? _("Building histograms...\n") :
 	_("Converting to %s colorspace...\n"), name[output_color-1]);
+  fprintf(stderr, "raw_color:%d document_mode:%d colors:%d\n", raw_color, document_mode, colors);
 
   memset (histogram, 0, sizeof histogram);
   for (img=image[0], row=0; row < height; row++)
@@ -9076,6 +9077,18 @@ void CLASS convert_to_rgb()
 	  out[2] += out_cam[2][c] * img[c];
 	}
 	FORC3 img[c] = CLIP((int) out[c]);
+        if(row == 10 && col == 10) {    /* WIP */
+          for(c = 0; c < 4; c++){
+            for(int i = 0; i < 3; i++){
+              fprintf(stderr, "out_cam[%d][%d]: %g\n", i, c, out_cam[i][c]);
+            }
+          }
+          for(c = 0; c < 3; c++) {
+            fprintf(stderr, "out[%d]:%g\n", c, out[c]);
+            fprintf(stderr, "img[%d]:%hu\n", c, img[c]);
+          }
+        }
+        /* or do we have to add something here? (zunda) */
       }
       else if (document_mode)
 	img[0] = img[fcol(row,col)];
@@ -9353,6 +9366,19 @@ void CLASS write_ppm_tiff()
     fwrite (ppm, colors*output_bps/8, width, ofp);
   }
   free (ppm);
+}
+
+void CLASS peek(int row, int col)       /* WIP */
+{
+  ushort *img, c, out[3];
+
+  img = image[0] + 4*(row*width + col);
+  out[0] = out[1] = out[2] = 0;
+  FORCC {
+    out[0] += img[c];
+    out[1] += img[c];
+    out[2] += img[c];
+  }
 }
 
 int CLASS main (int argc, const char **argv)
@@ -9677,6 +9703,20 @@ next:
     if (zero_is_bad) remove_zeroes();
     bad_pixels (bpfile);
     if (dark_frame) subtract (dark_frame);
+    /* zunda thinks that the image is raw at this point */
+    fprintf(stderr, "height: %u\nwidth:  %u\n", height, width);
+    for(int row = 0; row < 2; row++) {
+      for(int col = 0; col < 2; col++) {
+        fprintf(stderr, "BAYER(%d,%d): %u\n", row, col, BAYER(row,col));
+      }
+    }
+    for(int row = 0; row < 2; row++) {
+      for(int col = 0; col < 2; col++) {
+        int r = 2008 + row;
+        int c = 1124 + col;
+        fprintf(stderr, "BAYER(%d,%d): %u\n", r, c, BAYER(r,c));
+      }
+    }
     quality = 2 + !fuji_width;
     if (user_qual >= 0) quality = user_qual;
     i = cblack[3];
