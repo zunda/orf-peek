@@ -1,1 +1,4 @@
 dcraw
+.*.swp
+example/*.pgm
+example/*.ppm
