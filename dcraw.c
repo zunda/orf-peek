@@ -22,6 +22,7 @@
    $Revision: 1.467 $
    $Date: 2014/07/03 21:19:24 $
  */
+/* vim: set ai et ts=8 sw=4: */
 
 #define DCRAW_VERSION "9.22"
 
