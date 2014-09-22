@@ -41,4 +41,4 @@ Camera multipliers: 1.796875 1.000000 1.320312 0.000000
 
 ## Author
 - [dcraw.c](http://cybercom.net/%7Edcoffin/dcraw/dcraw.c) by [Dae Coffin](http://cybercom.net/%7Edcoffin/)
-- modification by zunda <zundan at gmail.com>
+- modification by zunda [zundan@gmail.com](mailto:zundan@gmail.com)
