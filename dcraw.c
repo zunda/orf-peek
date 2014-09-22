@@ -1948,6 +1948,8 @@ void CLASS olympus_load_raw()
   int row, col, nbits, sign, low, high, i, c, w, n, nw;
   int acarry[2][3], *carry, pred, diff;
 
+  fprintf(stderr, "olympus_load_raw() height:%d raw_width:%d\n", height, raw_width);
+
   huff[n=0] = 0xc0c;
   for (i=12; i--; )
     FORC(2048 >> i) huff[++n] = (i+1) << 8 | i;
@@ -1982,6 +1984,7 @@ void CLASS olympus_load_raw()
 	} else pred = ABS(w-nw) > ABS(n-nw) ? w : n;
       }
       if ((RAW(row,col) = pred + ((diff << 2) | low)) >> 12) derror();
+      if (row < 3 && col < 3) fprintf(stderr, "RAW(%d,%d):%hu ", row, col, RAW(row, col));
     }
   }
 }
