@@ -37,7 +37,7 @@ Camera multipliers: 1.796875 1.000000 1.320312 0.000000
 ## Install
 
 ## Licence
-[GPL Version 2 or later](gpl-2.0.txt)
+[GPL Version 2](gpl-2.0.txt) or later
 
 ## Author
 - [dcraw.c](http://cybercom.net/%7Edcoffin/dcraw/dcraw.c) by [Dae Coffin](http://cybercom.net/%7Edcoffin/)
