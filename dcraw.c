@@ -9081,8 +9081,9 @@ void CLASS convert_to_rgb()
 	}
 	FORC3 img[c] = CLIP((int) out[c]);
         if(row == 10 && col == 10) {    /* WIP */
+					int i;
           for(c = 0; c < 4; c++){
-            for(int i = 0; i < 3; i++){
+            for(i = 0; i < 3; i++){
               fprintf(stderr, "out_cam[%d][%d]: %g\n", i, c, out_cam[i][c]);
             }
           }
@@ -9699,19 +9700,22 @@ next:
     bad_pixels (bpfile);
     if (dark_frame) subtract (dark_frame);
     /* zunda thinks that the image is raw at this point */
-    fprintf(stderr, "height: %u\nwidth:  %u\n", height, width);
-    for(int row = 0; row < 2; row++) {
-      for(int col = 0; col < 2; col++) {
-        peek(row, col);
-      }
-    }
-    for(int row = 0; row < 2; row++) {
-      for(int col = 0; col < 2; col++) {
-        int r = 2008 + row;
-        int c = 1124 + col;
-        peek(r, c);
-      }
-    }
+		{
+			int row, col, r, c;
+			fprintf(stderr, "height: %u\nwidth:  %u\n", height, width);
+			for(row = 0; row < 2; row++) {
+				for(col = 0; col < 2; col++) {
+					peek(row, col);
+				}
+			}
+			for(row = 0; row < 2; row++) {
+				for(col = 0; col < 2; col++) {
+					r = 2008 + row;
+					c = 1124 + col;
+					peek(r, c);
+				}
+			}
+		}
     quality = 2 + !fuji_width;
     if (user_qual >= 0) quality = user_qual;
     i = cblack[3];
