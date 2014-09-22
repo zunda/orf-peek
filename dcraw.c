@@ -9373,15 +9373,7 @@ void CLASS write_ppm_tiff()
 
 void CLASS peek(int row, int col)       /* WIP */
 {
-  ushort *img, c, out[3];
-
-  img = image[0] + 4*(row*width + col);
-  out[0] = out[1] = out[2] = 0;
-  FORCC {
-    out[0] += img[c];
-    out[1] += img[c];
-    out[2] += img[c];
-  }
+  fprintf(stderr, "BAYER(%d,%d): %u %c\n", row, col, BAYER(row,col), cdesc[fcol(row,col)]);
 }
 
 int CLASS main (int argc, const char **argv)
@@ -9710,14 +9702,14 @@ next:
     fprintf(stderr, "height: %u\nwidth:  %u\n", height, width);
     for(int row = 0; row < 2; row++) {
       for(int col = 0; col < 2; col++) {
-        fprintf(stderr, "BAYER(%d,%d): %u\n", row, col, BAYER(row,col));
+        peek(row, col);
       }
     }
     for(int row = 0; row < 2; row++) {
       for(int col = 0; col < 2; col++) {
         int r = 2008 + row;
         int c = 1124 + col;
-        fprintf(stderr, "BAYER(%d,%d): %u\n", r, c, BAYER(r,c));
+        peek(r, c);
       }
     }
     quality = 2 + !fuji_width;
