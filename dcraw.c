@@ -9710,8 +9710,9 @@ next:
 			}
 			for(row = 0; row < 2; row++) {
 				for(col = 0; col < 2; col++) {
-					r = 2008 + row;
-					c = 1124 + col;
+					/* Moon is around x:2008 y:1124 */
+					r = 1124 + row;
+					c = 2008 + col;
 					peek(r, c);
 				}
 			}
