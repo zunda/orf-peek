@@ -140,6 +140,7 @@ int verbose=0, use_auto_wb=0, use_camera_wb=0, use_camera_matrix=1;
 int output_color=1, output_bps=8, output_tiff=0, med_passes=0;
 int no_auto_bright=0;
 unsigned greybox[4] = { 0, 0, UINT_MAX, UINT_MAX };
+ushort statbox[4];
 float cam_mul[4], pre_mul[4], cmatrix[3][4], rgb_cam[3][4];
 const double xyz_rgb[3][3] = {			/* XYZ from RGB */
   { 0.412453, 0.357580, 0.180423 },
@@ -1984,7 +1985,6 @@ void CLASS olympus_load_raw()
 	} else pred = ABS(w-nw) > ABS(n-nw) ? w : n;
       }
       if ((RAW(row,col) = pred + ((diff << 2) | low)) >> 12) derror();
-      if (row < 3 && col < 3) fprintf(stderr, "RAW(%d,%d):%hu ", row, col, RAW(row, col));
     }
   }
 }
@@ -9372,15 +9372,26 @@ void CLASS write_ppm_tiff()
   free (ppm);
 }
 
-void CLASS peek(int row, int col)       /* WIP */
+void CLASS show_stats()       /* WIP */
 {
-  fprintf(stderr, "BAYER(%d,%d): %u %c\n", row, col, BAYER(row,col), cdesc[fcol(row,col)]);
+  ushort c, r, c1, c2, r1, r2;
+  c1 = statbox[0];
+  c2 = statbox[0] + statbox[2];
+  r1 = statbox[1];
+  r2 = statbox[1] + statbox[3];
+  printf ("# raw values for piexels in reactangle (%hu,%hu)-(%hu,%hu)\n", c1, r1, c2-1, r2-1);
+  for(r = r1; r < r2; r++) {
+    for(c = c1; c < c2; c++) {
+      printf("%hu at (%d,%d) %c %d\n", BAYER(r, c), c, r, cdesc[fcol(r,c)], fcol(r,c));
+    }
+  }
 }
 
 int CLASS main (int argc, const char **argv)
 {
   int arg, status=0, quality, i, c;
   int timestamp_only=0, thumbnail_only=0, identify_only=0;
+  int stats_only=1;
   int user_qual=-1, user_black=-1, user_sat=-1, user_flip=-1;
   int use_fuji_rotate=1, write_to_stdout=0, read_from_stdin=0;
   const char *sp, *bpfile=0, *dark_frame=0, *write_ext;
@@ -9442,6 +9453,7 @@ int CLASS main (int argc, const char **argv)
     puts(_("-6        Write 16-bit instead of 8-bit"));
     puts(_("-4        Linear 16-bit, same as \"-6 -W -g 1 1\""));
     puts(_("-T        Write TIFF instead of PPM"));
+    puts(_("-R <x y w h> Show statistics of raw pixel values"));
     puts("");
     return 1;
   }
@@ -9506,6 +9518,10 @@ int CLASS main (int argc, const char **argv)
       case '4':  gamm[0] = gamm[1] =
 		 no_auto_bright    = 1;
       case '6':  output_bps       = 16;  break;
+      case 'R':
+      	stats_only        = 1;
+        FORC4 statbox[c]  = atoi(argv[arg++]);
+        break;
       default:
 	fprintf (stderr,_("Unknown option \"-%c\".\n"), opt);
 	return 1;
@@ -9699,24 +9715,10 @@ next:
     if (zero_is_bad) remove_zeroes();
     bad_pixels (bpfile);
     if (dark_frame) subtract (dark_frame);
-    /* zunda thinks that the image is raw at this point */
-		{
-			int row, col, r, c;
-			fprintf(stderr, "height: %u\nwidth:  %u\n", height, width);
-			for(row = 0; row < 2; row++) {
-				for(col = 0; col < 2; col++) {
-					peek(row, col);
-				}
-			}
-			for(row = 0; row < 2; row++) {
-				for(col = 0; col < 2; col++) {
-					/* Moon is around x:2008 y:1124 */
-					r = 1124 + row;
-					c = 2008 + col;
-					peek(r, c);
-				}
-			}
-		}
+    if (stats_only) {
+      show_stats();
+      goto next;
+    }
     quality = 2 + !fuji_width;
     if (user_qual >= 0) quality = user_qual;
     i = cblack[3];
