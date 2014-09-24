@@ -38,6 +38,14 @@ Camera multipliers: 1.796875 1.000000 1.320312 0.000000
 ```
 
 ## Install
+On OS X, you need either Xcode or Command Line Tools for Xcode installed.
+
+```
+$ git clone https://github.com/zunda/orf-peek.git
+$ cd orf-peek
+$ make
+$ sudo cp dcraw /usr/local/bin
+```
 
 ## Licence
 [GPL Version 2](gpl-2.0.txt) or later
