@@ -140,7 +140,7 @@ int verbose=0, use_auto_wb=0, use_camera_wb=0, use_camera_matrix=1;
 int output_color=1, output_bps=8, output_tiff=0, med_passes=0;
 int no_auto_bright=0;
 unsigned greybox[4] = { 0, 0, UINT_MAX, UINT_MAX };
-ushort statbox[4];
+int statbox[4];
 float cam_mul[4], pre_mul[4], cmatrix[3][4], rgb_cam[3][4];
 const double xyz_rgb[3][3] = {			/* XYZ from RGB */
   { 0.412453, 0.357580, 0.180423 },
@@ -9375,10 +9375,14 @@ void CLASS write_ppm_tiff()
 void CLASS show_stats()       /* WIP */
 {
   ushort c, r, c1, c2, r1, r2;
-  c1 = statbox[0];
-  c2 = statbox[0] + statbox[2];
-  r1 = statbox[1];
-  r2 = statbox[1] + statbox[3];
+  if (statbox[0] < 0 || statbox[0] < 0 || statbox[2] < 1 || statbox[3] < 1) {
+    fprintf (stderr, _("Invalid specification of pixel area for option -R\n"));
+    longjmp (failure, 1);
+  }
+  c1 = MAX(statbox[0], 0);
+  c2 = MIN(statbox[0] + statbox[2], raw_width);
+  r1 = MAX(statbox[1], 0);
+  r2 = MIN(statbox[1] + statbox[3], raw_height);
   printf ("# raw values for piexels in reactangle (%hu,%hu)-(%hu,%hu)\n", c1, r1, c2-1, r2-1);
   for(r = r1; r < r2; r++) {
     for(c = c1; c < c2; c++) {
