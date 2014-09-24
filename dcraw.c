@@ -9392,7 +9392,7 @@ void CLASS show_stats()       /* WIP */
   printf ("%0.1f sec\n", shutter);
   printf ("#Aperture: f/%0.1f\n", aperture);
   printf ("#Focal length: %0.1f mm\n", focal_len);
-  printf ("#Raw values for piexels in reactangle (%hu,%hu)-(%d,%d)\n", c1, r1, c2-1, r2-1);
+  printf ("#Raw values for piexels on or in reactangle (%hu,%hu)-(%d,%d)\n", c1, r1, c2-1, r2-1);
 
   int i, j, n[] = {0, 0, 0, 0}, map[4];
   double x, sum[] = {0, 0, 0, 0}, sumsq[] = {0, 0, 0, 0};
@@ -9415,9 +9415,12 @@ void CLASS show_stats()       /* WIP */
     }
   }
 
+  double av;
+  printf ("#Filter\taverage\tstddev\tn_pixels\n");
   for(i = 0; i < 4; i++) {
     if (n[i] > 0) {
-      printf ("f:%c sum:%g sumsq:%g n:%d\n", cdesc[i], sum[i], sumsq[i], n[i]);
+      av = sum[i] / n[i];
+      printf ("%c\t%.1f\t%.1f\t%d\n", cdesc[i], av, sqrt(sumsq[i]/n[i] - av*av), n[i]);
     }
   }
 }
