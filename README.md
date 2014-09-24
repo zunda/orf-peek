@@ -17,7 +17,7 @@ to take statistics.
 
 Create a preview image. Otherwise, refer to the corresponding jpeg file.
 ```
-$ ./dcraw -v -H 5 ./example/P9101350.ORF
+$ dcraw -v -H 5 ./example/P9101350.ORF
 Loading Olympus E-510 image from ./example/P9101350.ORF ...
 Scaling with darkness 72, saturation 3946, and
 multipliers 1.000000 0.440412 0.515139 0.440412
@@ -46,7 +46,7 @@ The example below calculates statistics for 100 pixels
 around the bright part of the Moon.
 
 ```
-$ ./dcraw -R 2008 1124 10 10 ./example/P9101350.ORF
+$ dcraw -R 2008 1124 10 10 ./example/P9101350.ORF
 #Filename: ./example/P9101350.ORF
 #Timestamp: Wed Sep 10 21:14:47 2014
 #Camera: Olympus E-510
@@ -76,4 +76,4 @@ $ sudo cp dcraw /usr/local/bin
 
 ## Author
 - [dcraw.c](http://cybercom.net/%7Edcoffin/dcraw/dcraw.c) by [Dae Coffin](http://cybercom.net/%7Edcoffin/)
-- modification by zunda [zundan@gmail.com](mailto:zundan@gmail.com)
+- Modification by zunda &lt;zundan@gmail.com&gt;
