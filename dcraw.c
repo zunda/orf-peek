@@ -1949,8 +1949,6 @@ void CLASS olympus_load_raw()
   int row, col, nbits, sign, low, high, i, c, w, n, nw;
   int acarry[2][3], *carry, pred, diff;
 
-  fprintf(stderr, "olympus_load_raw() height:%d raw_width:%d\n", height, raw_width);
-
   huff[n=0] = 0xc0c;
   for (i=12; i--; )
     FORC(2048 >> i) huff[++n] = (i+1) << 8 | i;
@@ -9067,7 +9065,6 @@ void CLASS convert_to_rgb()
   if (verbose)
     fprintf (stderr, raw_color ? _("Building histograms...\n") :
 	_("Converting to %s colorspace...\n"), name[output_color-1]);
-  fprintf(stderr, "raw_color:%d document_mode:%d colors:%d\n", raw_color, document_mode, colors);
 
   memset (histogram, 0, sizeof histogram);
   for (img=image[0], row=0; row < height; row++)
@@ -9080,19 +9077,6 @@ void CLASS convert_to_rgb()
 	  out[2] += out_cam[2][c] * img[c];
 	}
 	FORC3 img[c] = CLIP((int) out[c]);
-        if(row == 10 && col == 10) {    /* WIP */
-					int i;
-          for(c = 0; c < 4; c++){
-            for(i = 0; i < 3; i++){
-              fprintf(stderr, "out_cam[%d][%d]: %g\n", i, c, out_cam[i][c]);
-            }
-          }
-          for(c = 0; c < 3; c++) {
-            fprintf(stderr, "out[%d]:%g\n", c, out[c]);
-            fprintf(stderr, "img[%d]:%hu\n", c, img[c]);
-          }
-        }
-        /* or do we have to add something here? (zunda) */
       }
       else if (document_mode)
 	img[0] = img[fcol(row,col)];
@@ -9372,7 +9356,7 @@ void CLASS write_ppm_tiff()
   free (ppm);
 }
 
-void CLASS show_stats()       /* WIP */
+void CLASS show_stats()
 {
   ushort c, r, c1, c2, r1, r2;
   if (statbox[0] < 0 || statbox[0] < 0 || statbox[2] < 1 || statbox[3] < 1) {
@@ -9557,7 +9541,7 @@ int CLASS main (int argc, const char **argv)
 		 no_auto_bright    = 1;
       case '6':  output_bps       = 16;  break;
       case 'R':
-      	stats_only        = 1;
+        stats_only        = 1;
         FORC4 statbox[c]  = atoi(argv[arg++]);
         break;
       default:
