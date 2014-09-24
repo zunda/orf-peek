@@ -35,7 +35,7 @@ $ open ./example/P9101350.ppm
 By moving the mouse around,
 decide location of the top left corner, width, and height in pixels
 where statistics should be taken.
-Note that the pixel at the top left corner is at (x,y) = (0,0).
+Note that the pixel at the top left corner is at (x, y) = (0, 0).
 
 ### Statistics
 By specifying the coordinate of the top left corner as well as
