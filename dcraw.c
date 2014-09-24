@@ -9393,9 +9393,31 @@ void CLASS show_stats()       /* WIP */
   printf ("#Aperture: f/%0.1f\n", aperture);
   printf ("#Focal length: %0.1f mm\n", focal_len);
   printf ("#Raw values for piexels in reactangle (%hu,%hu)-(%hu,%hu)\n", c1, r1, c2-1, r2-1);
+
+  int i, j, n[] = {0, 0, 0, 0}, map[4];
+  double x, sum[] = {0, 0, 0, 0}, sumsq[] = {0, 0, 0, 0};
+  for(i = 0; i < 4; i++) {
+    for(j = 0; j < i; j++) {
+      if (cdesc[i] == cdesc[j]) {
+        map[i] = j;
+        break;
+      }
+    }
+    if (j >= i) map[i] = i;
+  }
   for(r = r1; r < r2; r++) {
     for(c = c1; c < c2; c++) {
-      printf("%hu at (%d,%d) %c %d\n", BAYER(r, c), c, r, cdesc[fcol(r,c)], fcol(r,c));
+      i = map[fcol(r,c)];
+      x = (double) BAYER(r,c);
+      n[i]++;
+      sum[i] += x;
+      sumsq[i] += x * x;
+    }
+  }
+
+  for(i = 0; i < 4; i++) {
+    if (n[i] > 0) {
+      printf ("f:%c sum:%g sumsq:%g n:%d\n", cdesc[i], sum[i], sumsq[i], n[i]);
     }
   }
 }
