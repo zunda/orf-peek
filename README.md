@@ -26,9 +26,7 @@ B	1449.8	67.0	25
 ```
 
 ## Usage
-
-Preview
-=======
+### Preview
 
 Use an image viewer to preview the image and decide where in the image
 to take statistics.
@@ -55,8 +53,7 @@ decide location of the top left corner, width, and height in pixels
 where statistics should be taken.
 Note that the pixel at the top left corner is at (x,y) = (0,0).
 
-Statistics
-==========
+### Statistics
 By specifying the coordinate of the top left corner as well as
 widtn and height, let the program calculate average and standard deviation
 of the pixels inside the rectangle for each color of Bayer filter.
