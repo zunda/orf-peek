@@ -61,6 +61,25 @@ G	2561.5	116.2	50
 B	1449.8	67.0	25
 ```
 
+### More features
+Run `dcraw` without an option for a list.
+
+```
+$ dcraw
+
+Raw photo decoder "dcraw" v9.22
+by Dave Coffin, dcoffin a cybercom o net
+
+Usage:  ./dcraw [OPTION]... [FILE]...
+
+-v        Print verbose messages
+-c        Write image data to standard output
+-e        Extract embedded thumbnail image
+-i        Identify files without decoding them
+-i -v     Identify files and show metadata
+  :
+```
+
 ## Install
 On OS X, you need either Xcode or Command Line Tools for Xcode installed.
 
