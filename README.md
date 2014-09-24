@@ -9,6 +9,9 @@ This software a modificatoin to
 which adds output of raw pixel values as ascii text into the standard output.
 
 ## Demo
+```
+./dcraw -R 2008 1124 10 10 example/P9101350.ORF
+```
 
 ## Usage
 Details of the image
