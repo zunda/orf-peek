@@ -10,7 +10,19 @@ which adds output of raw pixel values as ascii text into the standard output.
 
 ## Demo
 ```
-./dcraw -R 2008 1124 10 10 example/P9101350.ORF
+$ ./dcraw -R 2008 1124 10 10 example/P9101350.ORF
+#Filename: ./example/P9101350.ORF
+#Timestamp: Wed Sep 10 21:14:47 2014
+#Camera: Olympus E-510
+#ISO speed: 400
+#Shutter: 1/125.0 sec
+#Aperture: f/8.0
+#Focal length: 150.0 mm
+#Raw values for piexels on or in reactangle (2008,1124)-(2017,1133)
+#Filter	average	stddev	n_pixels
+R	1828.5	77.5	25
+G	2561.5	116.2	50
+B	1449.8	67.0	25
 ```
 
 ## Usage

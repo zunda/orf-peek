@@ -4,7 +4,7 @@ dcraw: dcraw.c
 
 example: dcraw
 	# an example run
-	./dcraw -R 1 1 10 10 ./example/P9101350.ORF
+	./dcraw -R 2008 1124 10 10 ./example/P9101350.ORF
 
 clean:
 	$(RM) dcraw
