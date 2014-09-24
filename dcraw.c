@@ -9383,7 +9383,16 @@ void CLASS show_stats()       /* WIP */
   c2 = MIN(statbox[0] + statbox[2], raw_width);
   r1 = MAX(statbox[1], 0);
   r2 = MIN(statbox[1] + statbox[3], raw_height);
-  printf ("# raw values for piexels in reactangle (%hu,%hu)-(%hu,%hu)\n", c1, r1, c2-1, r2-1);
+  printf ("#Filename: %s\n", ifname);
+  printf ("#Timestamp: %s", ctime(&timestamp));
+  printf ("#Camera: %s %s\n", make, model);
+  printf ("#ISO speed: %d\n", (int) iso_speed);
+  printf ("#Shutter: ");
+  if (shutter > 0 && shutter < 1) shutter = (printf ("1/"), 1 / shutter);
+  printf ("%0.1f sec\n", shutter);
+  printf ("#Aperture: f/%0.1f\n", aperture);
+  printf ("#Focal length: %0.1f mm\n", focal_len);
+  printf ("#Raw values for piexels in reactangle (%hu,%hu)-(%hu,%hu)\n", c1, r1, c2-1, r2-1);
   for(r = r1; r < r2; r++) {
     for(c = c1; c < c2; c++) {
       printf("%hu at (%d,%d) %c %d\n", BAYER(r, c), c, r, cdesc[fcol(r,c)], fcol(r,c));
