@@ -9392,7 +9392,7 @@ void CLASS show_stats()       /* WIP */
   printf ("%0.1f sec\n", shutter);
   printf ("#Aperture: f/%0.1f\n", aperture);
   printf ("#Focal length: %0.1f mm\n", focal_len);
-  printf ("#Raw values for piexels in reactangle (%hu,%hu)-(%hu,%hu)\n", c1, r1, c2-1, r2-1);
+  printf ("#Raw values for piexels in reactangle (%hu,%hu)-(%d,%d)\n", c1, r1, c2-1, r2-1);
 
   int i, j, n[] = {0, 0, 0, 0}, map[4];
   double x, sum[] = {0, 0, 0, 0}, sumsq[] = {0, 0, 0, 0};
