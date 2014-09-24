@@ -6,12 +6,10 @@ This is a small software to peek raw pixel values from images taken with digital
 ## Description
 This software a modificatoin to
 [dcraw.c](http://cybercom.net/%7Edcoffin/dcraw/dcraw.c) by [Dae Coffin](http://cybercom.net/%7Edcoffin/).
-which adds output of average and standard deviation of raw pixel values
-as specified.
+which adds output of average and standard deviation of raw pixel values.
 
 ## Usage
 ### Preview
-
 Use an image viewer to preview the image and decide where in the image
 to take statistics.
 
