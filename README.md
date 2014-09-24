@@ -10,7 +10,7 @@ which adds output of raw pixel values as ascii text into the standard output.
 
 ## Demo
 ```
-$ ./dcraw -R 2008 1124 10 10 example/P9101350.ORF
+$ ./dcraw -R 2008 1124 10 10 ./example/P9101350.ORF
 #Filename: ./example/P9101350.ORF
 #Timestamp: Wed Sep 10 21:14:47 2014
 #Camera: Olympus E-510
@@ -26,27 +26,46 @@ B	1449.8	67.0	25
 ```
 
 ## Usage
-Details of the image
-```
-$ ./dcraw  -i -v example/P9101350.ORF  
 
-Filename: example/P9101350.ORF
-Timestamp: Wed Sep 10 21:14:47 2014
-Camera: Olympus E-510
-ISO speed: 400
-Shutter: 1/125.0 sec
-Aperture: f/8.0
-Focal length: 150.0 mm
-Embedded ICC profile: no
-Number of raw images: 1
-Thumb size:  1600 x 1200
-Full size:   3720 x 2800
-Image size:  3720 x 2800
-Output size: 3720 x 2800
-Raw colors: 3
-Filter pattern: RGGBRGGBRGGBRGGB
-Daylight multipliers: 2.129439 0.937830 1.096957
-Camera multipliers: 1.796875 1.000000 1.320312 0.000000
+Preview
+=======
+
+Use an image viewer to preview the image and decide where in the image
+to take statistics.
+
+Create a preview image. Otherwise, refer to the corresponding jpeg file.
+```
+$ ./dcraw -v -H 5 ./example/P9101350.ORF
+Loading Olympus E-510 image from ./example/P9101350.ORF ...
+Scaling with darkness 72, saturation 3946, and
+multipliers 1.000000 0.440412 0.515139 0.440412
+AHD interpolation...
+Rebuilding highlights...
+Converting to sRGB colorspace...
+Writing data to ./example/P9101350.ppm ...
+```
+
+Open the preview.
+```
+$ open ./example/P9101350.ppm
+```
+
+By moving the mouse around,
+decide location of the top left corner, width, and height in pixels
+where statistics should be taken.
+Note that the pixel at the top left corner is at (x,y) = (0,0).
+
+Statistics
+==========
+By specifying the coordinate of the top left corner as well as
+widtn and height, let the program calculate average and standard deviation
+of the pixels inside the rectangle for each color of Bayer filter.
+
+The example below calculates statistics for 100 pixels
+around the bright part of the Moon.
+
+```
+$ ./dcraw -R 2008 1124 10 10 example/P9101350.ORF
 ```
 
 ## Install
