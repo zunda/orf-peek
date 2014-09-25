@@ -5,7 +5,7 @@ This is a small software to peek raw pixel values from images taken with digital
 
 ## Description
 This software is a modification to
-[dcraw.c](http://cybercom.net/%7Edcoffin/dcraw/dcraw.c) by [Dae Coffin](http://cybercom.net/%7Edcoffin/).
+[dcraw.c](http://cybercom.net/%7Edcoffin/dcraw/dcraw.c) by [Dae Coffin](http://cybercom.net/%7Edcoffin/),
 which adds output of average and standard deviation of raw pixel values.
 
 ## Usage
